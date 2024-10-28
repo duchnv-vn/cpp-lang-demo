@@ -1,3 +1,5 @@
+// ***************************************
+// GETTING STARTED
 #include <iostream>
 using namespace std;
 
