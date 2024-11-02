@@ -1,5 +1,7 @@
 .vscode/
 .git/
+.idea/
+cmake-build-debug/
 
 **/*.exe
 **/*.o
