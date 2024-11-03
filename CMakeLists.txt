@@ -12,4 +12,5 @@ add_executable(cpp_lang_demo
     src/educative/learn-cpp-complete-course/section-3/main.cpp
     src/educative/learn-cpp-complete-course/section-4/main.cpp
         src/educative/learn-cpp-complete-course/section-5-operators/main.cpp
-        src/educative/learn-cpp-complete-course/section-6-conditional-statements/main.cpp)
+        src/educative/learn-cpp-complete-course/section-6-conditional-statements/main.cpp
+        src/educative/learn-cpp-complete-course/section-7-loops/main.cpp)
