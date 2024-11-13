@@ -19,4 +19,6 @@ add_executable(cpp_lang_demo
         src/educative/learn-cpp-complete-course/section-10-arrays/main.cpp
         src/educative/learn-cpp-complete-course/section-11-computer-memory/main.cpp
         src/educative/learn-cpp-complete-course/section-12-dynamic-memory-allocation/main.cpp
-        src/educative/learn-cpp-complete-course/section-13-structures/main.cpp)
+        src/educative/learn-cpp-complete-course/section-13-structures/main.cpp
+        src/educative/learn-cpp-complete-course/mini-project-1/main.cpp
+        src/educative/learn-cpp-complete-course/mini-project-2/main.cpp)
