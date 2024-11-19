@@ -24,4 +24,11 @@ add_executable(cpp_lang_demo
         src/educative/learn-cpp-complete-course/mini-project-2/main.cpp
         src/educative/learn-cpp-complete-course/section-14-compilling/main.cpp
         src/ptit/bai-1.cpp
-        src/ptit/bai-2.cpp)
+        src/ptit/bai-2.cpp
+        src/educative/object-oriented-programming/1-classes/rectangle.h
+        src/educative/object-oriented-programming/1-classes/rectangle.cpp
+        src/educative/object-oriented-programming/1-classes/student.cpp
+        src/educative/object-oriented-programming/1-classes/Calculator.cpp
+        src/educative/object-oriented-programming/1-classes/Calculator.h
+        src/educative/object-oriented-programming/1-classes/Point.cpp
+        src/educative/object-oriented-programming/1-classes/Point.h)
