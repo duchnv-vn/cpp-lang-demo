@@ -7,7 +7,7 @@ using namespace std;
 class Honda : public Car
 {
 public:
-    Honda() ;
+    Honda();
 };
 
 #endif // HONDA_H
