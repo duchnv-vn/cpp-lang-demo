@@ -3,32 +3,11 @@ project(cpp_lang_demo)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories(src)
-include_directories(src/educative)
-include_directories(src/educative/learn-cpp-complete-course)
+set(SOURCE_FILES
+    src/educative/object-oriented-programming/2-data-hiding/main.cpp
+    src/educative/object-oriented-programming/2-data-hiding/Planet.cpp
+)
 
-add_executable(cpp_lang_demo
-    src/educative/learn-cpp-complete-course/section-1/main.cpp
-    src/educative/learn-cpp-complete-course/section-3/main.cpp
-    src/educative/learn-cpp-complete-course/section-4/main.cpp
-        src/educative/learn-cpp-complete-course/section-5-operators/main.cpp
-        src/educative/learn-cpp-complete-course/section-6-conditional-statements/main.cpp
-        src/educative/learn-cpp-complete-course/section-7-loops/main.cpp
-        src/educative/learn-cpp-complete-course/section-8-functions/main.cpp
-        src/educative/learn-cpp-complete-course/section-9-recursive/main.cpp
-        src/educative/learn-cpp-complete-course/section-10-arrays/main.cpp
-        src/educative/learn-cpp-complete-course/section-11-computer-memory/main.cpp
-        src/educative/learn-cpp-complete-course/section-12-dynamic-memory-allocation/main.cpp
-        src/educative/learn-cpp-complete-course/section-13-structures/main.cpp
-        src/educative/learn-cpp-complete-course/mini-project-1/main.cpp
-        src/educative/learn-cpp-complete-course/mini-project-2/main.cpp
-        src/educative/learn-cpp-complete-course/section-14-compilling/main.cpp
-        src/ptit/bai-1.cpp
-        src/ptit/bai-2.cpp
-        src/educative/object-oriented-programming/1-classes/rectangle.h
-        src/educative/object-oriented-programming/1-classes/rectangle.cpp
-        src/educative/object-oriented-programming/1-classes/student.cpp
-        src/educative/object-oriented-programming/1-classes/Calculator.cpp
-        src/educative/object-oriented-programming/1-classes/Calculator.h
-        src/educative/object-oriented-programming/1-classes/Point.cpp
-        src/educative/object-oriented-programming/1-classes/Point.h)
+include_directories(src)
+
+add_executable(cpp_lang_demo ${SOURCE_FILES})
