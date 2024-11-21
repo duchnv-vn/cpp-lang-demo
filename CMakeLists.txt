@@ -4,15 +4,7 @@ project(cpp_lang_demo)
 set(CMAKE_CXX_STANDARD 14)
 
 set(SOURCE_FILES
-        src/educative/object-oriented-programming/3-inheritance/Vehicle.cpp
-        src/educative/object-oriented-programming/3-inheritance/Vehicle.h
-        src/educative/object-oriented-programming/3-inheritance/main.cpp
-        src/educative/object-oriented-programming/3-inheritance/Car.cpp
-        src/educative/object-oriented-programming/3-inheritance/Car.h
-        src/educative/object-oriented-programming/3-inheritance/License.cpp
-        src/educative/object-oriented-programming/3-inheritance/License.h
-        src/educative/object-oriented-programming/3-inheritance/Honda.cpp
-        src/educative/object-oriented-programming/3-inheritance/Honda.h
+        src/educative/object-oriented-programming/3-inheritance/challenges/DynamicArray.cpp
 )
 
 include_directories(src)
