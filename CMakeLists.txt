@@ -4,7 +4,7 @@ project(cpp_lang_demo)
 set(CMAKE_CXX_STANDARD 14)
 
 set(SOURCE_FILES
-        src/educative/object-oriented-programming/4-polymorphism/main.cpp)
+        src/educative/object-oriented-programming/4-polymorphism/challenges/challenge-2.cpp)
 
 include_directories(src)
 
