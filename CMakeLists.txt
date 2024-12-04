@@ -4,7 +4,7 @@ project(cpp_lang_demo)
 set(CMAKE_CXX_STANDARD 17)
 
 set(SOURCE_FILES
-        src/educative/embedded-programming/safety-critical-systems/automatic-type-deduction.cpp
+        src/educative/embedded-programming/safety-critical-systems/scoped-enumerations.cpp
 )
 
 include_directories(src)
