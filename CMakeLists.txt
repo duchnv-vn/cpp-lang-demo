@@ -4,7 +4,7 @@ project(cpp_lang_demo)
 set(CMAKE_CXX_STANDARD 17)
 
 set(SOURCE_FILES
-        src/educative/embedded-programming/safety-critical-systems/static-assert.cpp
+        src/ptit/trr/class-2/3_2.cpp
 )
 
 include_directories(src)
