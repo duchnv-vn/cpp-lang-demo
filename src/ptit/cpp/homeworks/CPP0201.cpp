@@ -9,15 +9,13 @@ void quickSort(int arr[], const int left, const int right) {
     const int pivot = arr[(left + right) / 2];
     int tempL = left, tempR = right;
 
-    while (tempL <= tempR) {
+    while (tempL < tempR) {
         while (arr[tempL] < pivot) tempL++;
         while (arr[tempR] > pivot) tempR--;
 
-        if (tempL < tempR) {
-            const int temp = arr[tempL];
-            arr[tempL] = arr[tempR];
-            arr[tempR] = temp;
-        }
+        const int temp = arr[tempL];
+        arr[tempL] = arr[tempR];
+        arr[tempR] = temp;
 
         tempL++;
         tempR--;
