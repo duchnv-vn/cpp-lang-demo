@@ -1,67 +1,143 @@
+/*
+ * 1. Tìm tất cả hoán vị tạo thành 1 ma trận.
+ * 2. Kiểm tra ma trận hợp lệ.
+ * 3. Kiểm tra ma trận có tồn tại trong tập hợp kết quả bằng cách xoay và phản chiếu.
+ */
+
 #include <iostream>
 #include <vector>
-#include <array>
 using namespace std;
 
-#define K 3
+int N = 3;
+int MAGIC_SUM = 15;
+int TOTAL = N * N;
 
-void add_combination(vector<array<int,K> > &combinations, const int combination[K]) {
-    array<int,K> clone_combination{};
-    for (int i = 0; i < K; i++) clone_combination[i] = combination[i];
-    combinations.push_back(clone_combination);
+vector<vector<int> > uniqueMagicSquares;
+
+bool isMagicSquare(const vector<int> &square) {
+    int grid[N][N];
+
+    // Chuyển từ mảng 1D sang ma trận 2D
+    for (int i = 0; i < TOTAL; i++) {
+        grid[i / N][i % N] = square[i];
+    }
+
+    // Kiểm tra tổng hàng và cột
+    for (int i = 0; i < N; i++) {
+        int rowSum = 0, colSum = 0;
+        for (int j = 0; j < N; j++) {
+            rowSum += grid[i][j];
+            colSum += grid[j][i];
+        }
+        if (rowSum != MAGIC_SUM || colSum != MAGIC_SUM) return false;
+    }
+
+    // Kiểm tra tổng đường chéo
+    int diag1 = 0;
+    int diag2 = 0;
+    for (int i = 0; i < N; i++) {
+        diag1 += grid[i][i];
+        diag2 += grid[i][N - 1 - i];
+    }
+    if (diag1 != MAGIC_SUM || diag2 != MAGIC_SUM) return false;
+
+    return true;
 }
 
-void find_combination(vector<array<int,K> > &combinations, int combination[K], const int curr_idx) {
-    if (curr_idx == K) {
-        add_combination(combinations, combination);
+vector<int> rotate90(const vector<int> &square) {
+    vector<int> rotated(TOTAL);
+    int idx = 0;
+    for (int i = 0; i < N; i++) {
+        for (int j = N - 1; j >= 0; j--) {
+            rotated[idx++] = square[j * N + i];
+        }
+    }
+    return rotated;
+}
+
+vector<int> mirrorHorizontal(const vector<int> &square) {
+    vector<int> mirrored(TOTAL);
+    int idx = 0;
+    for (int i = 0; i < N; i++) {
+        for (int j = N - 1; j >= 0; j--) {
+            mirrored[idx++] = square[i * N + j];
+        }
+    }
+    return mirrored;
+}
+
+vector<int> mirrorVertical(const vector<int> &square) {
+    vector<int> mirrored(TOTAL);
+    int idx = 0;
+    for (int i = N - 1; i >= 0; i--) {
+        for (int j = 0; j < N; j++) {
+            mirrored[idx++] = square[i * N + j];
+        }
+    }
+    return mirrored;
+}
+
+bool isUnique(const vector<int> &square) {
+    // Sinh tất cả các phép quay và phản chiếu của square
+    vector<int> rotated90 = rotate90(square);
+    vector<int> rotated180 = rotate90(rotated90);
+    vector<int> rotated270 = rotate90(rotated180);
+
+    vector<int> mirroredH = mirrorHorizontal(square);
+    vector<int> mirroredV = mirrorVertical(square);
+
+    // Kiểm tra xem ma trận có duy nhất không
+    for (const auto &existing: uniqueMagicSquares) {
+        if (existing == square || existing == rotated90 || existing == rotated180 || existing == rotated270 ||
+            existing == mirroredH || existing == mirroredV) {
+            return false; // Ma trận này đã tồn tại
+        }
+    }
+    return true;
+}
+
+void generateSquares(vector<int> &square, bool *usedNumbers, int size) {
+    if (size == TOTAL) {
+        if (isMagicSquare(square) && isUnique(square)) {
+            uniqueMagicSquares.push_back(square);
+        }
         return;
     }
 
-    for (int i = 1; i <= K * K; i++) {
-        bool is_unique = true;
-        for (int j = 0; j < curr_idx; j++) {
-            if (combination[j] == i) {
-                is_unique = false;
-                break;
-            }
-        }
-
-        if (is_unique) {
-            combination[curr_idx] = i;
-            find_combination(combinations, combination, curr_idx + 1);
+    for (int i = 1; i <= TOTAL; i++) {
+        if (!usedNumbers[i]) {
+            usedNumbers[i] = true;
+            square[size] = i;
+            generateSquares(square, usedNumbers, size + 1);
+            usedNumbers[i] = false;
         }
     }
 }
 
-
 int main() {
-    vector<array<int,K> > combinations;
-    int temp_combination[K];
-    find_combination(combinations, temp_combination, 0);
+    cout << "Nhap bac ma tran: ";
+    cin >> N;
+    cout << endl;
 
-    int min_sum = 0, max_sum = 0;
-    for (int i = 0; i < K; i++) {
-        min_sum += i + 1;
-        max_sum += K * K - i;
-    }
+    TOTAL = N * N;
+    int sum = 0;
+    for (int i = 1; i <= TOTAL; i++) sum += i;
+    MAGIC_SUM = sum / N;
 
-    const int sum_count = max_sum - min_sum + 1;
-    vector<array<int,K> > combinations_by_sum[sum_count];
-    for (const auto com: combinations) {
-        int sum = 0;
-        for (int i = 0; i < K; i++) sum += com[i];
-        combinations_by_sum[sum - min_sum].push_back(com);
-    }
+    vector<int> square(TOTAL);
+    bool usedNumbers[TOTAL + 1] = {false};
 
-    // cout << "Sum count: " << sum_count << endl;
-    for (int i = 0; i < sum_count; i++) {
-        if (combinations_by_sum[i].size() < 8) continue;
+    generateSquares(square, usedNumbers, 0);
 
-        for (const auto com: combinations_by_sum[i]) {
-            cout << com[0] << "," << com[1] << "," << com[2] << endl;
+    // In kết quả
+    cout << "Tong so ket qua ma tran bac " << N << ": " << uniqueMagicSquares.size() << endl;
+    for (const auto &magic: uniqueMagicSquares) {
+        for (int i = 0; i < TOTAL; i++) {
+            cout << magic[i] << " ";
+            if ((i + 1) % N == 0) cout << endl;
         }
-
-        break;
-        // cout << "Sum: " << i + min_sum << " | " << "Size: " << combinations_by_sum[i].size() << endl;
+        cout << endl;
     }
+
+    return 0;
 }
