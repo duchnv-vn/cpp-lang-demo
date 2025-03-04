@@ -1,26 +1,41 @@
 #include <iostream>
 using namespace std;
 
-void quickSort(int *arr, const int left, const int right) {
+void quickSort(int *arr, int left, int right) {
     if (left >= right) return;
 
-    auto tempL = left, tempR = right;
-    const auto pivot = arr[((left + right) / 2)];
+    int tempL = left, tempR = right;
+    int pivot = arr[(left + right) / 2];
 
-    while (tempL < tempR) {
+    while (tempL <= tempR) {
         while (arr[tempL] < pivot) tempL++;
         while (arr[tempR] > pivot) tempR--;
 
-        const auto temp = arr[tempL];
-        arr[tempL] = arr[tempR];
-        arr[tempR] = temp;
-
-        tempL++;
-        tempR--;
+        if (tempL <= tempR) {
+            swap(arr[tempL], arr[tempR]);
+            tempL++;
+            tempR--;
+        }
     }
 
-    quickSort(arr, left, tempR);
-    quickSort(arr, tempL, right);
+    if (left < tempR) quickSort(arr, left, tempR);
+    if (tempL < right) quickSort(arr, tempL, right);
+}
+
+int findSmallestMissingPositive(int A[], int n) {
+    quickSort(A, 0, n - 1);
+
+    int smallestMissing = 1;
+    for (int i = 0; i < n; i++) {
+        if (A[i] < 1) continue;
+        if (A[i] == smallestMissing) {
+            smallestMissing++;
+        } else if (A[i] > smallestMissing) {
+            break;
+        }
+    }
+
+    return smallestMissing;
 }
 
 int main() {
@@ -32,49 +47,9 @@ int main() {
         cin >> n;
 
         int A[n];
-        for (int i = 0; i < n; i++) {
-            int v;
-            cin >> v;
-            A[i] = v;
-        }
+        for (int i = 0; i < n; i++) cin >> A[i];
 
-        quickSort(A, 0, n - 1);
-
-        if (A[n - 1] <= 0) {
-            cout << 1 << endl;
-            return 0;
-        }
-
-        if (n == 1) {
-            if (A[0] > 1) {
-                cout << 1 << endl;
-                return 0;
-            }
-
-            cout << 2 << endl;
-            return 0;
-        }
-
-        for (int i = 0; i < n; i++) {
-            if (i + 1 == n) {
-                cout << (A[i] + 1) << endl;
-                break;
-            }
-
-            if (A[i] < 0 && A[i + 1] <= 0) continue;
-
-            if (A[i + 1] - A[i] > 1) {
-                if (A[i] < 0 && A[i + 1] - 0 > 1) {
-                    cout << 1 << endl;
-                    break;
-                }
-
-                if (A[i] > 0) {
-                    cout << (A[i] + 1) << endl;
-                    break;
-                }
-            }
-        }
+        cout << findSmallestMissingPositive(A, n) << endl;
     }
 
     return 0;
