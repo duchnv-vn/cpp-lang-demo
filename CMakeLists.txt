@@ -4,7 +4,7 @@ project(cpp_lang_demo)
 set(CMAKE_CXX_STANDARD 17)
 
 set(SOURCE_FILES
-        src/ptit/cpp/homeworks/CPP0244.cpp
+        src/ptit/trr/class-4/question-3.cpp
 )
 
 include_directories(src)
