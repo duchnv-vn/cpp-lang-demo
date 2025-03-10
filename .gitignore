@@ -2,6 +2,7 @@
 .git/
 .idea/
 cmake-build-debug/
+build/
 
 **/*.exe
 **/*.o
