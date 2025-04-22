@@ -1,68 +1,55 @@
 #include <iostream>
-#include <vector>
-#include <limits>
+#include <string>
+#include <algorithm>
 using namespace std;
 
+void findLargestSmaller(string &N) {
+    int len = N.length();
+    int idx1 = -1, idx2 = -1;
+
+    // Step 1: Find the rightmost position where a swap is possible
+    for (int i = len - 2; i >= 0; i--) {
+        if (N[i] > N[i + 1]) {
+            idx1 = i;
+            break;
+        }
+    }
+
+    // If no such index is found, it's already the smallest permutation
+    if (idx1 == -1) {
+        cout << "-1\n";
+        return;
+    }
+
+    // Step 2: Find the largest number smaller than N[idx1] to its right
+    for (int i = len - 1; i > idx1; i--) {
+        if (N[i] < N[idx1]) {
+            if (idx2 == -1 || N[i] > N[idx2]) {
+                idx2 = i;
+            }
+        }
+    }
+
+    // Step 3: Swap the digits
+    swap(N[idx1], N[idx2]);
+
+    // Step 4: If the resulting number has a leading zero, print -1
+    if (N[0] == '0') {
+        cout << "-1\n";
+    } else {
+        cout << N << "\n";
+    }
+}
+
 int main() {
-    int test;
-    cin >> test;
+    int T;
+    cin >> T;
 
-    while (test--) {
-        int N;
+    while (T--) {
+        string N;
         cin >> N;
-
-        if (N < 20) return -1;
-
-        vector<int> numbers;
-        int remain = N;
-        int previousNumber = numeric_limits<int>::max();
-        bool isInOrder = true;
-        do {
-            int number = remain % 10;
-            remain /= 10;
-            numbers.push_back(number);
-
-            if (isInOrder) {
-                isInOrder = number < previousNumber;
-                previousNumber = number;
-            }
-        } while (remain);
-
-        if (isInOrder) {
-            cout << -1 << endl;
-            continue;
-        }
-
-        int replaceIndexes[2]{-1};
-        const int size = static_cast<int>(numbers.size());
-        for (int i = size - 1; i >= 0; i--) {
-            for (int j = i - 1; j >= 0; j--) {
-                if (numbers[i] > numbers[j]) {
-                    replaceIndexes[0] = i;
-
-                    if (numbers[j] > replaceIndexes[1])
-                        replaceIndexes[1] = j;
-                }
-            }
-
-            if (replaceIndexes[0] != -1 && replaceIndexes[1] != -1) {
-                const int temp = numbers[replaceIndexes[0]];
-                numbers[replaceIndexes[0]] = numbers[replaceIndexes[1]];
-                numbers[replaceIndexes[1]] = temp;
-                break;
-            }
-
-            replaceIndexes[0] = -1;
-        }
-
-        int base = 1;
-        int newNumber = 0;
-        for (const auto number: numbers) {
-            newNumber += number * base;
-            base *= 10;
-        }
-        cout << newNumber << endl;
-    };
+        findLargestSmaller(N);
+    }
 
     return 0;
 }
